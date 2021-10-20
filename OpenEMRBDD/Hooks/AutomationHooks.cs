@@ -12,6 +12,7 @@ namespace OpenEMRBDD.Hooks
         public static IWebDriver driver;
 
 
+        //runs after each scenario
         [AfterScenario]
         public void EndScenario()
         {
