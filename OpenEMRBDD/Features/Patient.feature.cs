@@ -76,12 +76,21 @@ namespace OpenEMRBDD.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Add Patient")]
-        public virtual void AddPatient()
+        [NUnit.Framework.TestCaseAttribute("john", "wick", "2021-09-26", "Male", "7878", "Tobacco", "Medical Record Dashboard - John Wick", null)]
+        [NUnit.Framework.TestCaseAttribute("peter", "kenny", "2021-10-22", "Female", "7878", "Tobacco", "Medical Record Dashboard - Peter Kenny", null)]
+        public virtual void AddPatient(string fname, string lname, string dob, string gender, string license, string expectedalert, string expectedaddedpatient, string[] exampleTags)
         {
-            string[] tagsOfScenario = ((string[])(null));
+            string[] tagsOfScenario = exampleTags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("fname", fname);
+            argumentsOfScenario.Add("lname", lname);
+            argumentsOfScenario.Add("dob", dob);
+            argumentsOfScenario.Add("gender", gender);
+            argumentsOfScenario.Add("license", license);
+            argumentsOfScenario.Add("expectedalert", expectedalert);
+            argumentsOfScenario.Add("expectedaddedpatient", expectedaddedpatient);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add Patient", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 7
+#line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -101,45 +110,62 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 8
+#line 7
  testRunner.Given("I have browser with OpenEmr url", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 9
+#line 8
  testRunner.When("I enter username as \'admin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 10
+#line 9
  testRunner.And("I enter password as \'pass\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 11
+#line 10
  testRunner.And("I select language as \'English (Indian)\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 12
+#line 11
  testRunner.And("I click on login", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 13
+#line 12
  testRunner.And("I click on patient-client", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 14
+#line 13
  testRunner.And("I click on patients", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 15
+#line 14
  testRunner.And("I click on add new patient", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                             "firstname",
                             "lastname",
                             "dob",
-                            "gender"});
+                            "gender",
+                            "licensenumber"});
                 table1.AddRow(new string[] {
-                            "john",
-                            "wick",
-                            "2021-09-26",
-                            "Male"});
-#line 16
+                            string.Format("{0}", fname),
+                            string.Format("{0}", lname),
+                            string.Format("{0}", dob),
+                            string.Format("{0}", gender),
+                            string.Format("{0}", license)});
+#line 15
  testRunner.And("I fill the patient detail", ((string)(null)), table1, "And ");
 #line hidden
-#line 19
+#line 18
  testRunner.And("I click on create new patient", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 19
+ testRunner.And("I click on confirm create new patient", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 20
+ testRunner.And("I store the text and handle the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 21
+ testRunner.And("I close the happy birthday popup if dob is today\'s date", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 22
+ testRunner.Then(string.Format("I should get the alert message as \'{0}\'", expectedalert), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 23
+ testRunner.And(string.Format("I should get the added patient detail as \'{0}\'", expectedaddedpatient), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

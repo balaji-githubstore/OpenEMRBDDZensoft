@@ -11,10 +11,27 @@ namespace OpenEMRBDD.Steps
     [Binding]
     public class LoginSteps
     {
+
+        private FeatureContext featureContext;
+        private ScenarioContext scenarioContext;
+
+        public LoginSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            this.featureContext = featureContext;
+            this.scenarioContext = scenarioContext;
+        }
+
+
+
+
+
+
         [Given(@"I have browser with OpenEmr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
-        
+            scenarioContext.Add("myname", "balaji");
+            scenarioContext.Add("currentTeam", "zensoft");
+
             AutomationHooks.driver = new ChromeDriver();
             AutomationHooks.driver.Manage().Window.Maximize();
             AutomationHooks.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
