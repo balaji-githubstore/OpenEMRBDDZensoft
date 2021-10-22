@@ -29,7 +29,20 @@ namespace OpenEMRBDD.Hooks
             string scenarioName = scenarioContext.ScenarioInfo.Title;
             Console.WriteLine(scenarioName);
             driver.Quit();
+
+            string name = AutomationHooks.EmpName(out int empno);
+            Console.WriteLine(name);
+            Console.WriteLine(empno);
+
         }
 
+
+        public static string EmpName(out int empno)
+        {
+            string name = "bala";
+            empno = 101;
+            return name;
+            
+        }
     }
 }

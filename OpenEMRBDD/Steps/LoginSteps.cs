@@ -27,8 +27,6 @@ namespace OpenEMRBDD.Steps
             scenarioContext.Add("myname", "balaji");
             scenarioContext.Add("currentTeam", "zensoft");
 
-
-
             AutomationHooks.driver = new ChromeDriver();
             AutomationHooks.driver.Manage().Window.Maximize();
             AutomationHooks.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
