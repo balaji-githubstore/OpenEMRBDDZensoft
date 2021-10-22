@@ -19,11 +19,7 @@ namespace OpenEMRBDD.Steps
             this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
         }
-
-
-
-
-        private static string actualAlertText;
+        //private static string actualAlertText;
 
 
         [When(@"I click on patient-client")]
@@ -87,7 +83,12 @@ namespace OpenEMRBDD.Steps
             WebDriverWait wait = new WebDriverWait(AutomationHooks.driver, TimeSpan.FromSeconds(50));
             wait.Until(x=>x.SwitchTo().Alert());
 
-            actualAlertText = AutomationHooks.driver.SwitchTo().Alert().Text;
+            string actualAlertText = AutomationHooks.driver.SwitchTo().Alert().Text;
+
+            //keeping the key alerttext in the current scenario memory
+            scenarioContext.Add("alerttext", actualAlertText);
+
+
             AutomationHooks.driver.SwitchTo().Alert().Accept();
         }
 
@@ -113,7 +114,10 @@ namespace OpenEMRBDD.Steps
                 Console.WriteLine(name1);
             }
 
-            Assert.IsTrue(actualAlertText.Contains(expectedAlertText)); // failure on false 
+            if(scenarioContext.TryGetValue("alerttext",out string actualAlert))
+            {
+                Assert.IsTrue(actualAlert.Contains(expectedAlertText)); // failure on false 
+            }     
         }
 
         [Then(@"I should get the added patient detail as '(.*)'")]

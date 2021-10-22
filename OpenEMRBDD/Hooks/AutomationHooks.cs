@@ -18,6 +18,8 @@ namespace OpenEMRBDD.Hooks
         {
             this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
+
+            
         }
 
         //runs after each scenario

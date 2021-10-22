@@ -21,16 +21,13 @@ namespace OpenEMRBDD.Steps
             this.scenarioContext = scenarioContext;
         }
 
-
-
-
-
-
         [Given(@"I have browser with OpenEmr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
             scenarioContext.Add("myname", "balaji");
             scenarioContext.Add("currentTeam", "zensoft");
+
+
 
             AutomationHooks.driver = new ChromeDriver();
             AutomationHooks.driver.Manage().Window.Maximize();
@@ -78,6 +75,9 @@ namespace OpenEMRBDD.Steps
         [Then(@"I should get the error stating '(.*)'")]
         public void ThenIShouldGetTheErrorStating(string expectedError)
         {
+
+            featureContext.Add("name", "jack"+expectedError);
+
             string actualValue = AutomationHooks.driver.FindElement(By.XPath("//*[contains(text(),'Invalid')]")).Text.Trim();
             Assert.AreEqual(expectedError, actualValue);
         }
@@ -86,6 +86,12 @@ namespace OpenEMRBDD.Steps
         [Then(@"I should get access to the dashboard with text '(.*)' and title as '(.*)'")]
         public void ThenIShouldGetAccessToTheDashboardWithTextTitleAs(string waitForText, string expectedValue)
         {
+            if (featureContext.TryGetValue("name", out string checkName))
+            {
+                Console.WriteLine(checkName); // failure on false 
+            }
+
+
             WebDriverWait wait = new WebDriverWait(AutomationHooks.driver, TimeSpan.FromSeconds(50));
             wait.Until(x => x.FindElement(By.XPath("//*[text()='"+waitForText+"']")));
 
