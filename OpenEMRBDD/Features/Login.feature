@@ -24,3 +24,4 @@ Scenario Outline: Valid Credential
 		| username   | password   | language         | waitfortext | expectedvalue |
 		| admin      | pass       | English (Indian) | Messages    | OpenEMR       |
 		| accountant | accountant | English (Indian) | About       | OpenEMR       |
+		| physician  | physician  | English (Indian) | Calendar    | OpenEMR       |

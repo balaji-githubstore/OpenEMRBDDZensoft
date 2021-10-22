@@ -14,6 +14,7 @@ namespace OpenEMRBDD.Steps
         [Given(@"I have browser with OpenEmr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
+        
             AutomationHooks.driver = new ChromeDriver();
             AutomationHooks.driver.Manage().Window.Maximize();
             AutomationHooks.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);

@@ -125,6 +125,22 @@ this.ScenarioInitialize(scenarioInfo);
 #line 15
  testRunner.And("I click on add new patient", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                            "firstname",
+                            "lastname",
+                            "dob",
+                            "gender"});
+                table1.AddRow(new string[] {
+                            "john",
+                            "wick",
+                            "2021-09-26",
+                            "Male"});
+#line 16
+ testRunner.And("I fill the patient detail", ((string)(null)), table1, "And ");
+#line hidden
+#line 19
+ testRunner.And("I click on create new patient", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
             }
             this.ScenarioCleanup();
         }

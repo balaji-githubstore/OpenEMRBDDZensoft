@@ -13,4 +13,7 @@ Scenario: Add Patient
 	And I click on patient-client
 	And I click on patients 
 	And I click on add new patient
-
+	And I fill the patient detail 
+	| firstname | lastname | dob        | gender |
+	| john      | wick     | 2021-09-26 | Male   |
+	And I click on create new patient

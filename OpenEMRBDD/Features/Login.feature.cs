@@ -136,6 +136,7 @@ this.FeatureBackground();
         [NUnit.Framework.DescriptionAttribute("Valid Credential")]
         [NUnit.Framework.TestCaseAttribute("admin", "pass", "English (Indian)", "Messages", "OpenEMR", null)]
         [NUnit.Framework.TestCaseAttribute("accountant", "accountant", "English (Indian)", "About", "OpenEMR", null)]
+        [NUnit.Framework.TestCaseAttribute("physician", "physician", "English (Indian)", "Calendar", "OpenEMR", null)]
         public virtual void ValidCredential(string username, string password, string language, string waitfortext, string expectedvalue, string[] exampleTags)
         {
             string[] tagsOfScenario = exampleTags;

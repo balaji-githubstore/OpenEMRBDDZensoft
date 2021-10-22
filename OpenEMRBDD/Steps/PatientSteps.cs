@@ -28,5 +28,22 @@ namespace OpenEMRBDD.Steps
             AutomationHooks.driver.FindElement(By.Id("create_patient_btn1")).Click();
             AutomationHooks.driver.SwitchTo().DefaultContent();
         }
+        [When(@"I fill the patient detail")]
+        public void WhenIFillThePatientDetail(Table table)
+        {
+            Console.WriteLine(table.RowCount);
+            Console.WriteLine(table.Rows[0][0]);
+
+            Console.WriteLine(table.Rows[0]["firstname"]);
+
+            Console.WriteLine(table.Rows[0]["gender"]);
+        }
+
+        [When(@"I click on create new patient")]
+        public void WhenIClickOnCreateNewPatient()
+        {
+            
+        }
+
     }
 }
