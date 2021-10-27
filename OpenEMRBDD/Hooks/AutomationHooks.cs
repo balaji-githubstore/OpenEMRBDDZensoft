@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Chrome;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,27 +10,22 @@ namespace OpenEMRBDD.Hooks
     [Binding]
     public class AutomationHooks
     {
-        public static IWebDriver driver;
+        public IWebDriver driver;
 
-        private FeatureContext featureContext;
-        private ScenarioContext scenarioContext;
-
-        public AutomationHooks(FeatureContext featureContext,ScenarioContext scenarioContext)
+        public void LaunchBrowser()
         {
-            this.featureContext = featureContext;
-            this.scenarioContext = scenarioContext;
+            driver = new ChromeDriver();
+            driver.Manage().Window.Maximize();
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
+            driver.Url = "https://demo.openemr.io/b/openemr";
         }
+
 
         //runs after each scenario
         [AfterScenario]
         public void EndScenario()
         {
-            string scenarioName = scenarioContext.ScenarioInfo.Title;
-            Console.WriteLine(scenarioName);
             driver.Quit();
-
-        
-
         }
 
 

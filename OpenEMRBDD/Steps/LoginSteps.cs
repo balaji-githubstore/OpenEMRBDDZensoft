@@ -1,72 +1,72 @@
 ﻿using NUnit.Framework;
 using OpenEMRBDD.Hooks;
-using OpenEMRBDD.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using System;
 using TechTalk.SpecFlow;
+using Zensoft.OpenErmApplication.Pages;
 
 namespace OpenEMRBDD.Steps
 {
     [Binding]
     public class LoginSteps
     {
+        private readonly AutomationHooks hooks;
+        private LoginPage _loginPage;
 
-        private FeatureContext featureContext;
-        private ScenarioContext scenarioContext;
+        public LoginSteps(AutomationHooks hooks)
+        { 
+            this.hooks = hooks;
+        }
 
-        public LoginSteps(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public void InitializePages()
         {
-            this.featureContext = featureContext;
-            this.scenarioContext = scenarioContext;
+            _loginPage = new LoginPage(hooks.driver);
         }
 
         [Given(@"I have browser with OpenEmr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
-            scenarioContext.Add("myname", "balaji");
-            scenarioContext.Add("currentTeam", "zensoft");
-
-            AutomationHooks.driver = new ChromeDriver();
-            AutomationHooks.driver.Manage().Window.Maximize();
-            AutomationHooks.driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(30);
-            AutomationHooks.driver.Url = "https://demo.openemr.io/b/openemr";
+            //scenarioContext.Add("myname", "balaji");
+            //scenarioContext.Add("currentTeam", "zensoft");
+            hooks.LaunchBrowser();
+            InitializePages();
         }
 
         [Given(@"I enter username as '(.*)'")]
         [When(@"I enter username as '(.*)'")]
         public void WhenIEnterUsernameAs(string username)
         {
-            LoginPage.EnterUsername(username);
+            _loginPage.EnterUsername(username);
         }
 
         [When(@"I enter password as '(.*)'")]
         public void WhenIEnterPasswordAs(string password)
         {
-            AutomationHooks.driver.FindElement(By.Id("clearPass")).SendKeys(password);
+            _loginPage.EnterPassword(password);
+            
         }
 
         [When(@"I select language as '(.*)'")]
         public void WhenISelectLanguageAs(string language)
         {
-            SelectElement selectLanuage = new SelectElement(AutomationHooks.driver.FindElement(By.Name("languageChoice")));
-            selectLanuage.SelectByText(language);
+            _loginPage.SelectLanguageByText(language);
         }
 
         [When(@"I click on login")]
         public void WhenIClickOnLogin()
         {
-            AutomationHooks.driver.FindElement(By.XPath("//button[@type='submit']")).Click();
+            _loginPage.ClickOnLogin();
         }
 
         [Then(@"I should get access to the dashboard with title as '(.*)'")]
         public void ThenIShouldGetAccessToTheDashboardWithTitleAs(string expectedValue)
         {
-            WebDriverWait wait = new WebDriverWait(AutomationHooks.driver, TimeSpan.FromSeconds(50));
+            WebDriverWait wait = new WebDriverWait(hooks.driver, TimeSpan.FromSeconds(50));
             wait.Until(x => x.FindElement(By.XPath("//*[text()='About']")));
 
-            string actualValue = AutomationHooks.driver.Title;
+            string actualValue = hooks.driver.Title;
 
             Assert.AreEqual(expectedValue, actualValue);
         }
@@ -75,9 +75,7 @@ namespace OpenEMRBDD.Steps
         public void ThenIShouldGetTheErrorStating(string expectedError)
         {
 
-            featureContext.Add("name", "jack"+expectedError);
-
-            string actualValue = AutomationHooks.driver.FindElement(By.XPath("//*[contains(text(),'Invalid')]")).Text.Trim();
+            string actualValue = _loginPage.GetInvalidErrorMessage();
             Assert.AreEqual(expectedError, actualValue);
         }
 
@@ -85,16 +83,10 @@ namespace OpenEMRBDD.Steps
         [Then(@"I should get access to the dashboard with text '(.*)' and title as '(.*)'")]
         public void ThenIShouldGetAccessToTheDashboardWithTextTitleAs(string waitForText, string expectedValue)
         {
-            if (featureContext.TryGetValue("name", out string checkName))
-            {
-                Console.WriteLine(checkName); // failure on false 
-            }
-
-
-            WebDriverWait wait = new WebDriverWait(AutomationHooks.driver, TimeSpan.FromSeconds(50));
+            WebDriverWait wait = new WebDriverWait(hooks.driver, TimeSpan.FromSeconds(50));
             wait.Until(x => x.FindElement(By.XPath("//*[text()='"+waitForText+"']")));
 
-            string actualValue = AutomationHooks.driver.Title;
+            string actualValue = hooks.driver.Title;
 
             Assert.AreEqual(expectedValue, actualValue);
         }
