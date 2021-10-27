@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using OpenEMRBDD.Hooks;
+using OpenEMRBDD.Pages;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
@@ -37,7 +38,7 @@ namespace OpenEMRBDD.Steps
         [When(@"I enter username as '(.*)'")]
         public void WhenIEnterUsernameAs(string username)
         {
-            AutomationHooks.driver.FindElement(By.Id("authUser")).SendKeys(username);
+            LoginPage.EnterUsername(username);
         }
 
         [When(@"I enter password as '(.*)'")]

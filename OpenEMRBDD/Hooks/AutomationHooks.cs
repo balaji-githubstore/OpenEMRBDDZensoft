@@ -18,8 +18,6 @@ namespace OpenEMRBDD.Hooks
         {
             this.featureContext = featureContext;
             this.scenarioContext = scenarioContext;
-
-            
         }
 
         //runs after each scenario
@@ -30,19 +28,11 @@ namespace OpenEMRBDD.Hooks
             Console.WriteLine(scenarioName);
             driver.Quit();
 
-            string name = AutomationHooks.EmpName(out int empno);
-            Console.WriteLine(name);
-            Console.WriteLine(empno);
+        
 
         }
 
 
-        public static string EmpName(out int empno)
-        {
-            string name = "bala";
-            empno = 101;
-            return name;
-            
-        }
+     
     }
 }
