@@ -1,8 +1,10 @@
-﻿Feature: Patient
+﻿@patient
+Feature: Patient
 	In order to maintain patients record
 	As a admin
 	I want to add, edit, delete patient details in the portal 
 
+@high @ignore
 Scenario Outline: Add Patient
 	Given I have browser with OpenEmr url
 	When I enter username as 'admin'

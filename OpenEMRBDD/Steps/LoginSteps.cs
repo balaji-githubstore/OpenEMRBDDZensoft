@@ -25,6 +25,13 @@ namespace OpenEMRBDD.Steps
             _loginPage = new LoginPage(hooks.driver);
         }
 
+        [Given(@"I have '(.*)' browser with OpenEmr url")]
+        public void GivenIHaveBrowserWithOpenEmrUrl(string browser)
+        {
+            hooks.LaunchBrowser(browser);
+            InitializePages();
+        }
+
         [Given(@"I have browser with OpenEmr url")]
         public void GivenIHaveBrowserWithOpenemrUrl()
         {
