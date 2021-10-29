@@ -34,11 +34,15 @@ namespace OpenEMRBDD.Hooks
         {
             if(browser.Equals("ff"))
             {
-                driver = new FirefoxDriver();
+                FirefoxOptions options = new FirefoxOptions();
+                options.AddArgument("--Headless");
+                driver = new FirefoxDriver(options);
             }
             else
             {
-                driver = new ChromeDriver();
+                ChromeOptions options = new ChromeOptions();
+                options.AddArgument("--Headless");
+                driver = new ChromeDriver(options);
             }
             
             driver.Manage().Window.Maximize();
